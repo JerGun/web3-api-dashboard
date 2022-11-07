@@ -1,4 +1,5 @@
 import Button from "@components/Button"
+import ApiDoc from "@components/user/ApiDoc"
 import { faCopy, faKey, faSignature } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import axios from "axios"
@@ -6,15 +7,12 @@ import { getSession, signOut } from "next-auth/react"
 import { useEffect, useRef, useState } from "react"
 import Input from "../components/Input"
 
-// gets a prop from getServerSideProps
 function User({ user }) {
-  const pathRef = useRef()
   const usernameRef = useRef()
   const avatarRef = useRef()
   const bannerRef = useRef()
 
   const [userData, setUserData] = useState({})
-  const [queryData, setQueryData] = useState({})
 
   useEffect(() => {
     localStorage.setItem("accessToken", user.accessToken)
@@ -59,23 +57,12 @@ function User({ user }) {
     setUserData(user.data)
   }
 
-  const handlerQueryPath = async (e) => {
-    e.preventDefault()
-    const path = pathRef.current.value
-    const queryResult = await axios.get(`${process.env.BACKEND_URL}/${path}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
-    setQueryData(queryResult.data)
-  }
-
   const copyData = (data) => {
     navigator.clipboard.writeText(data)
   }
 
   return (
-    <div className="h-screen flex p-10 space-x-10 bg-background text-white">
+    <div className="h-screen flex p-10 space-x-5 bg-background text-white">
       <div className="w-1/4 space-y-5">
         <div className="h-fit w-full rounded-xl bg-subBackground">
           <div className="h-64 w-full opacity-90">
@@ -154,31 +141,7 @@ function User({ user }) {
           <Button title="Save" />
         </form>
       </div>
-      <form onSubmit={handlerQueryPath} className="space-x-5">
-        <div className="flex items-center space-x-3">
-          <p>{process.env.BACKEND_URL}/</p>
-          <input
-            ref={pathRef}
-            type="text"
-            placeholder="path"
-            className="h-10 rounded border border-gray-300 px-3"
-          />
-        </div>
-        <button
-          type="submit"
-          className="h-10 border rounded px-5 bg-blue-400 text-white"
-        >
-          Send
-        </button>
-      </form>
-      <pre>{JSON.stringify(queryData, null, 2)}</pre>
-
-      <button
-        onClick={() => signOut({ redirect: "/signin" })}
-        className="h-10 border rounded px-5 bg-red-400 text-white"
-      >
-        Sign out
-      </button>
+      <ApiDoc />
     </div>
   )
 }
