@@ -19,17 +19,14 @@ export default function Home() {
     const { account } = await connectAsync({
       connector: new MetaMaskConnector(),
     })
+    const address = account
 
     const fetchNonce = await axios.get(
       `${process.env.BACKEND_URL}/users/nonce/${account}`
     )
 
     const message = `Nonce: ${fetchNonce.data.nonce}`
-
     const signature = await signMessageAsync({ message })
-    console.log(signature)
-
-    const address = account
 
     const { url } = await signIn("credentials", {
       address,
