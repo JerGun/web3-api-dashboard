@@ -57,7 +57,11 @@ export default function Home() {
             {cleenList.includes(index) ? (
               <div className="h-full w-full bg-gray-600"></div>
             ) : !hideList.includes(index) ? (
-              <img src={`https://picsum.photos/${sideLength * 2}?random=${item}`} alt={`Random #${item}`} />
+              <img
+                src={`https://picsum.photos/${sideLength * 2}?random=${item}`}
+                alt={`Random #${item}`}
+                className="h-full w-full"
+              />
             ) : null}
           </Hexagon>
         )}
