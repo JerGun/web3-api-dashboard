@@ -64,7 +64,7 @@ function User({ user }) {
   return (
     <div className="h-screen flex p-10 space-x-5 bg-background text-white">
       <div className="w-1/4 space-y-5">
-        <div className="h-fit w-full rounded-xl bg-subBackground">
+        <div className="h-2/3 w-full rounded-xl bg-subBackground">
           <div className="h-64 w-full opacity-90">
             <img
               src={userData.banner}
@@ -72,7 +72,7 @@ function User({ user }) {
               className="h-full w-full rounded-t-xl object-cover"
             />
           </div>
-          <div className="h-2/3 flex p-5 space-x-5">
+          <div className="flex p-5 space-x-5">
             <img
               src={userData.avatar}
               alt="Avatar"
@@ -124,7 +124,7 @@ function User({ user }) {
         </div>
         <form
           onSubmit={handlerSubmit}
-          className="w-full flex flex-col space-y-5 p-5 rounded-xl bg-subBackground"
+          className="h-1/3 w-full flex flex-col space-y-5 p-5 rounded-xl bg-subBackground"
         >
           <div className="flex items-center space-x-3">
             <p className="w-24">Username</p>
